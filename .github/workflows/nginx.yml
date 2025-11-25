@@ -27,7 +27,7 @@ jobs:
       - name: Build and push Docker image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: flask # Replace with your ECR repository name
+          ECR_REPOSITORY:nginx # Replace with your ECR repository name
           IMAGE_TAG: ${{ github.sha }} # Use Git SHA as image tag
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -40,7 +40,7 @@ jobs:
           
       - name: Login to instance
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@50.17.135.45 << 'EOF'
+          ssh -o StrictHostKeyChecking=no ubuntu@50.17.135.45 << 'EOF'
           touch file1
           
           sudo su
